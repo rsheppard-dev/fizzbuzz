@@ -1,10 +1,10 @@
-# Coding Challenge Name
+# FizzBuzz
 
 ## A Coding Challenge
 
 ### Challenge
 
-Explain the challenge here.
+Create a program that prints the numbers from 1 to 100. For numbers that are a multiple of 3 display Fizz, numbers that are a multiple of 5 display Buzz and for numbers that are a multiple of 3 and 5 display FizzBuzz.
 
 ### Features
 
@@ -14,4 +14,4 @@ Explain the challenge here.
 
 ### The Tech Stack
 
-HTML5, CSS3, BootStrap 5, TypeScript
+HTML5, CSS3, BootStrap, TypeScript
