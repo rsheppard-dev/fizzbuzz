@@ -6,6 +6,10 @@ const getValues = (e: Event): void => {
 	e.preventDefault();
 
 	// get elements from html page
+	const startValueInput = document.getElementById(
+		'startValue'
+	) as HTMLInputElement;
+	const endValueInput = document.getElementById('endValue') as HTMLInputElement;
 	const fizzValueInput = document.getElementById(
 		'fizzValue'
 	) as HTMLInputElement;
@@ -14,16 +18,25 @@ const getValues = (e: Event): void => {
 	) as HTMLInputElement;
 
 	// get values from inputs and parse to integers
+	const startValue = parseInt(startValueInput.value);
+	const endValue = parseInt(endValueInput.value);
 	const fizzValue = parseInt(fizzValueInput.value);
 	const buzzValue = parseInt(buzzValueInput.value);
 
 	// check if values entered by user are invalid
-	if (!Number.isInteger(fizzValue) || !Number.isInteger(buzzValue)) {
+	if (
+		![startValue, endValue, fizzValue, buzzValue].every(value =>
+			Number.isInteger(value)
+		)
+	) {
 		// display error on page if invalid input
 		handleError('You can only enter numbers in the inputs above.');
 	} else {
-		// call generateNumbers function to generate numbers from 1 - 100
-		const numbers = generateNumbers(1, 100);
+		// clear any existing errors
+		handleError();
+
+		// call generateNumbers function to generate numbers from range
+		const numbers = generateNumbers(startValue, endValue);
 
 		const fizzBuzzResult = fizzBuzz(numbers, fizzValue, buzzValue);
 
