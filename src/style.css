@@ -18,9 +18,7 @@ h2,
 h3,
 h4,
 h5,
-h6,
-tbody,
-button {
+h6 {
 	font-family: var(--font-primary);
 }
 
@@ -32,4 +30,17 @@ input,
 
 .bg-light {
 	background-color: var(--light);
+}
+
+.Fizz {
+	color: darkgreen;
+}
+
+.Buzz {
+	color: blue;
+}
+
+.FizzBuzz {
+	color: red;
+	font-weight: bold;
 }

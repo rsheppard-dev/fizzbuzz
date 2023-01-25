@@ -23,9 +23,11 @@ const getValues = (e: Event): void => {
 	const fizzValue = parseInt(fizzValueInput.value);
 	const buzzValue = parseInt(buzzValueInput.value);
 
-	// check if values entered by user are invalid
-	if (
-		![startValue, endValue, fizzValue, buzzValue].every(value =>
+	if (startValue > endValue) {
+		// display error on page if startValue is higher than endValue
+		handleError('Start value cannot be higher than the end value!');
+	} else if (
+		![startValue, endValue, fizzValue, buzzValue].every((value: number) =>
 			Number.isInteger(value)
 		)
 	) {
@@ -41,7 +43,7 @@ const getValues = (e: Event): void => {
 		const fizzBuzzResult = fizzBuzz(numbers, fizzValue, buzzValue);
 
 		// call displayNumbers function
-		displayNumbers(fizzBuzzResult);
+		displayData(fizzBuzzResult);
 	}
 };
 
@@ -63,23 +65,25 @@ const fizzBuzz = (
 	numbers: number[],
 	fizzValue: number,
 	buzzValue: number
-): (number | string)[] => {
-	const fizzBuzzResult: (number | string)[] = [];
+): string[] => {
+	const fizzBuzzResult: string[] = [];
 
 	// loop through numbers
 	for (let i = 0; i < numbers.length; i++) {
-		if (numbers[i] % fizzValue === 0 && numbers[i] % buzzValue === 0) {
+		if (
+			[fizzValue, buzzValue].every((value: number) => numbers[i] % value === 0)
+		) {
 			// if current number is a multiple of both values replace with fizzbuzz
-			fizzBuzzResult[i] = 'FizzBuzz';
+			fizzBuzzResult.push('FizzBuzz');
 		} else if (numbers[i] % fizzValue === 0) {
 			// if current number is only a multiple of first value replace with fizz
-			fizzBuzzResult[i] = 'Fizz';
+			fizzBuzzResult.push('Fizz');
 		} else if (numbers[i] % buzzValue === 0) {
 			// if current number is only a multiple of second value replace with buzz
-			fizzBuzzResult[i] = 'Buzz';
+			fizzBuzzResult.push('Buzz');
 		} else {
-			// if no match remain as number
-			fizzBuzzResult[i] = numbers[i];
+			// if no match push number as a string
+			fizzBuzzResult.push(numbers[i].toString());
 		}
 	}
 
@@ -87,34 +91,37 @@ const fizzBuzz = (
 };
 
 // function to display number range
-const displayNumbers = (fizzBuzzResult: (number | string)[]): void => {
-	// get table body from html document
+const displayData = (fizzBuzzResult: string[]): void => {
+	// get table body from dom
 	const tableBody = document.getElementById(
 		'results'
 	) as HTMLTableSectionElement;
 
-	let templateRows = '';
+	// get template
+	const templateRow = document.getElementById(
+		'fizz-buzz-template'
+	) as HTMLTemplateElement;
+
+	// clear table first
+	tableBody.innerHTML = '';
 
 	// loop through all the numbers
-	for (let i = 0; i < fizzBuzzResult.length; i++) {
-		const value = fizzBuzzResult[i];
+	for (let i = 0; i < fizzBuzzResult.length; i += 5) {
+		// create a clone from table row template
+		const tableRow = document.importNode(templateRow.content, true);
 
-		// set appropriate class to current result
-		const className =
-			value === 'FizzBuzz'
-				? 'table-primary'
-				: value === 'Fizz'
-				? 'table-success'
-				: value === 'Buzz'
-				? 'table-warning'
-				: '';
+		// store all table columns into an array
+		const rowCol = tableRow.querySelectorAll('td');
 
-		// update template rows
-		templateRows += `<tr class="${className}"><td>${value}<td></tr>`;
+		// for each column add current value and correct class
+		rowCol.forEach((col: HTMLTableCellElement, index: number): void => {
+			col.innerText = fizzBuzzResult[i + index];
+			col.classList.add(fizzBuzzResult[i + index]);
+		});
+
+		// insert current table row into dom
+		tableBody.appendChild(tableRow);
 	}
-	console.log(fizzBuzzResult);
-	// update html in table body
-	tableBody.innerHTML = templateRows;
 };
 
 // function to display and hide error message
@@ -138,3 +145,5 @@ const submitButton = document.getElementById('submit') as HTMLButtonElement;
 
 // create event listener for when user clicks button
 submitButton.addEventListener('click', getValues);
+
+export {};

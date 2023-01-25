@@ -68,7 +68,7 @@
 						id="fizzValue"
 						name="fizzValue"
 						class="form-control"
-						aria-label="Start Value"
+						aria-label="Fizz Value"
 						value="3"
 					/>
 				</div>
@@ -81,14 +81,12 @@
 						id="buzzValue"
 						name="buzzValue"
 						class="form-control"
-						aria-label="End Value"
-						value="7"
+						aria-label="Buzz Value"
+						value="5"
 					/>
 				</div>
 				<div>
-					<button id="submit" class="btn btn-warning my-2">
-						Generate Numbers
-					</button>
+					<button id="submit" class="btn btn-warning my-2">FizzBuzz</button>
 				</div>
 				<div id="error" class="d-none text-bg-danger p-3 rounded"></div>
 			</form>
@@ -103,7 +101,15 @@
 				</table>
 			</div>
 		</div>
-
+		<template id="fizz-buzz-template">
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</template>
 		<script type="module" src="/src/main.ts"></script>
 		<script type="module" src="/src/close.ts"></script>
 	</body>

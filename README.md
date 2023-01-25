@@ -8,9 +8,14 @@ Create a program that prints the numbers from 1 to 100. For numbers that are a m
 
 ### Features
 
-- List
-- the
-- features
+- CSS and BootStrap Layout
+- Arrow Functions
+- HTML Templating
+- Arrays
+- DOM Manipulation
+- For Loops
+- If/Then/Else
+- Event Listeners
 
 ### The Tech Stack
 
